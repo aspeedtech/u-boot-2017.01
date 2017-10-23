@@ -1,0 +1,18 @@
+if ARCH_AST2300
+
+config SYS_CPU
+	default "arm926ejs"
+
+config SYS_BOARD
+	default "ast-g3"
+
+config SYS_VENDOR
+	default "aspeed"
+
+config SYS_SOC
+	default "aspeed"
+
+config SYS_CONFIG_NAME
+	default "ast-g3"
+
+endif

@@ -1,0 +1,19 @@
+if ARCH_AST2500 || ARCH_AST3200
+
+config SYS_CPU
+	default "arm1176"
+
+config SYS_BOARD
+	default "ast-g5"
+
+config SYS_VENDOR
+	default "aspeed"
+
+config SYS_SOC
+	default "aspeed"
+
+config SYS_CONFIG_NAME
+	string "Board configuration name"
+	default "ast-g5_evb"
+
+endif

@@ -1,0 +1,55 @@
+#
+# Memory devices
+#
+
+menu "Memory Controller drivers"
+
+config AST_CAM_SDMC
+	depends on ARCH_AST1220
+	bool "ASPEED CAM DRAM Controller"
+
+config AST_G5_SDMC
+	depends on (ARCH_AST2500 || ARCH_AST3200)
+	bool "ASPEED G5 DRAM Controller"
+
+config AST_SDMC
+	bool "ASPEED DRAM Controller"
+	depends on (ARCH_AST2300 || ARCH_AST2400)
+
+if AST_G5_SDMC
+
+choice 
+	prompt "DRAM Speed"
+	default DRAM_1600
+
+config DRAM_1600
+	bool "DRAM 1600"
+
+config DRAM_1333
+	bool "DRAM 1333"
+
+endchoice
+
+endif
+
+config DRAM_ECC
+	bool "DRAM ECC Enable"
+	depends on (AST_G5_SDMC || AST_SDMC)
+
+config DRAM_ECC_SIZE
+        hex "DRAM ECC Size"
+        depends on DRAM_ECC
+        default 0x10000000
+	
+config TI_AEMIF
+	tristate "Texas Instruments AEMIF driver"
+	depends on ARCH_KEYSTONE
+	help
+	  This driver is for the AEMIF module available in Texas Instruments
+	  SoCs. AEMIF stands for Asynchronous External Memory Interface and
+	  is intended to provide a glue-less interface to a variety of
+	  asynchronuous memory devices like ASRAM, NOR and NAND memory. A total
+	  of 256M bytes of any of these memories can be accessed at a given
+	  time via four chip selects with 64M byte access per chip select.
+
+endmenu

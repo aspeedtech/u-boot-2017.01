@@ -1,0 +1,115 @@
+if ARCH_ASPEED
+
+menu "ASPEED AST SoC Selection"
+
+choice
+        prompt "ASPEED Processor Family"
+        default CONFIG_IRMP
+
+config IRMP
+        bool "IRMP Serials"
+
+config PCEXT
+	bool "PC Extender Serials"
+
+config REMOTEFX
+	bool "RemoteFX Zero-Client Serials"
+
+config RT360_CAM
+	bool "Real Time 360 CAM"
+
+endchoice
+
+if IRMP
+
+choice
+        prompt "IRMP Serials"
+        default CONFIG_ARCH_AST2300
+
+config ARCH_AST2300
+	select CPU_ARM926EJS
+        bool "AST2300"
+
+config ARCH_AST2400
+	select CPU_ARM926EJS
+	select USB_ARCH_HAS_EHCI
+        bool "AST2400"
+
+config ARCH_AST2500
+	select CPU_ARM1176
+	select USB_ARCH_HAS_EHCI
+	select AST_UART_SDMA
+	select EGFX_IRQ
+        bool "AST2500"
+
+endchoice
+
+endif
+
+if PCEXT
+
+choice
+        prompt "PC Extender Serials"
+        default CONFIG_ARCH_AST1510
+
+config ARCH_AST1500
+	select CPU_ARM926T
+        bool "AST1500"
+
+config ARCH_AST1510
+	select CPU_ARM926T
+        bool "AST1510"
+
+config ARCH_AST1520
+	select CPU_V6
+	select USB_ARCH_HAS_EHCI
+	bool "AST1520"
+
+endchoice
+
+endif
+
+if REMOTEFX
+
+choice
+        prompt "RemoteFX Zero-Client Serials"
+        default CONFIG_ARCH_AST3100
+
+config ARCH_AST3100
+	select CPU_ARM926EJS
+	select USB_ARCH_HAS_EHCI
+        bool "AST3100"
+
+config ARCH_AST3200
+	select CPU_ARM1176
+	select USB_ARCH_HAS_EHCI
+	select EGFX_IRQ
+        bool "AST3200"
+
+endchoice
+
+endif
+
+config AST_VIDEO_SIZE
+        hex "Reserver for VIDEO Engine DRAM Size (defaul 40MB)"
+        depends on IRMP
+        default 0x2800000
+
+config FPGA_ASPEED
+	bool "FPGA"
+
+config AST_CVIC
+	bool "AST CVIC"
+
+config AST_SCU_LOCK
+	bool "AST SCU Protection Key"
+
+config AST1070_UART_DMA
+	bool
+
+config AST_UART_SDMA
+	bool
+
+endmenu 
+
+endif
